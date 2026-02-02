@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.pm.patient_service.model.Patient;
 import com.pm.patient_service.repository.PatientRepository;
+import com.pm.patient_service.dto.PatientRequestDTO;
 import com.pm.patient_service.dto.PatientResponseDTO;
 import com.pm.patient_service.mapper.PatientMapper;
 
@@ -28,8 +29,13 @@ public class PatientService {
         return patientResponseDTOs;
     }
 
-    public PatientResponseDTO createPatient(PatientResponseDTO patientRequestDTO){
-
+    // this function takes the patientrequestDTO as an argument and called the mapper function
+    // on it to convert the DTO to a domain object
+    public PatientResponseDTO createPatient(PatientRequestDTO patientRequestDTO){
+        Patient newPatient =  patientRepository.save(PatientMapper.toModel(patientRequestDTO)); // .save() is provided by JPA
+                
+        // then return the newly added patient as DTO
+        return PatientMapper.toDTO(newPatient); 
     }
 
 
