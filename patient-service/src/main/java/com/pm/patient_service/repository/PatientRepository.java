@@ -12,5 +12,7 @@ import com.pm.patient_service.model.Patient;
 // patient repo gets the patient entity. We also pass in the type of its ID, which is a UUID
 // extending gives us crud functionalities out of the box
 public interface PatientRepository extends JpaRepository<Patient, UUID> {
+// define custom methods to expose to the patient service
+    boolean existsByEmail(String email); //exposing this method - JPA handles this behind the scenes
 
 }

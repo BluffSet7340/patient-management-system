@@ -89,3 +89,17 @@ The adding of a new patient works and the validation also works, for example sen
 We need to handle the error responses to not reveal too much information about the backend being used.
 
 I created a GlobalExceptionHandler class to centralize any and all errors that might arise from the service, repo, controller, and more. This gives me control over what info I reveal to the client or the frontend developer (I suppose?), minimizing security risk. In my case, this will handle the exception caused from bad requests such as missing fields or exceeding the max character limit. 
+
+### 2nd January 2026 - 
+
+Had to move my project to another laptop running linux since the one running windows kept throwing kernel errors. Just spent the time configuring, debugging, cleanning and installing packages using Maven. 
+
+Business logic is a set of tasks and processes that follow constraints to achieve a business goal. One example is that an email address must be unique as having the same email address attributed to multiple people causes issues with contacting the correct patient. I will implement this business logic right now 
+
+### 5th January 2026 -
+
+Currently working on implementing an error message for when there is a user with an existing email address when trying to add a new patient. I have to install the intellisense so that it is easier for me create the method for seeing if a patient exists by email id. Installing some extensions for this. 
+
+Added the method to the patient repo and now I'll use that in my patien service.
+
+So I had to define a new exception class for my email already exists exception. 

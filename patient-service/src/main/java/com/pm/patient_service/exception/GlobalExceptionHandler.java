@@ -3,6 +3,7 @@ package com.pm.patient_service.exception;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+// import org.springframework.web.bind.;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
@@ -26,4 +27,12 @@ public class GlobalExceptionHandler {
         ex.getBindingResult().getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
         return ResponseEntity.badRequest().body(errors);
     }
+
+    @ExceptionHandler(EmailAlreadyExistsException.class) // annotation
+    public ResponseEntity<Map<String, String>> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex){
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Email already exists");
+        return ResponseEntity.badRequest().body(errors);
+    }
+
 }

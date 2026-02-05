@@ -32,6 +32,13 @@ public class PatientService {
     // this function takes the patientrequestDTO as an argument and called the mapper function
     // on it to convert the DTO to a domain object
     public PatientResponseDTO createPatient(PatientRequestDTO patientRequestDTO){
+        // if(patientRepository.existsByEmail(patientRequestDTO.getEmail())){
+        //     // we have to define this custom exception in the globalExceptionHandlerException
+        //     throw new EmailAlreadyExistsException("A patient with this email already exists" +
+        //         patientRequestDTO.getEmail()
+        //     );
+        // }
+
         Patient newPatient =  patientRepository.save(PatientMapper.toModel(patientRequestDTO)); // .save() is provided by JPA
                 
         // then return the newly added patient as DTO

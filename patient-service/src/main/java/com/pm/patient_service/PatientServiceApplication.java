@@ -3,7 +3,7 @@ package com.pm.patient_service;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication // notifies springboot that this is the entry point of the application
+@SpringBootApplication // notifies springboot that   this is the entry point of the application
 public class PatientServiceApplication {
 
 	//entry point for our java application
