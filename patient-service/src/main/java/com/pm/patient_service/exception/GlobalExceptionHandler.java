@@ -3,13 +3,11 @@ package com.pm.patient_service.exception;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-// import org.springframework.web.bind.;
 import org.springframework.http.ResponseEntity;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.Map;
 import java.util.HashMap;
-// import org.springframework.http.HttpStatus;
-
 
 // this is a class that handles exceptions globally
 // it will be used to handle exceptions that are thrown by the controller
@@ -20,6 +18,10 @@ import java.util.HashMap;
 // it will be used to handle exceptions that are thrown by the database
 @ControllerAdvice
 public class GlobalExceptionHandler {
+// log var is init
+    private static final Logger log = LoggerFactory.getLogger(
+        GlobalExceptionHandler.class);
+
     @ExceptionHandler(MethodArgumentNotValidException.class) // handles validation errors
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>(); // key value pairs of the errors
@@ -30,8 +32,22 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(EmailAlreadyExistsException.class) // annotation
     public ResponseEntity<Map<String, String>> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex){
+        // open close braces are placeholders
+        // the log is for the developer
+        log.warn("Email address already exists {}", ex.getMessage());
         Map<String, String> errors = new HashMap<>();
+        // the error is for the client
         errors.put("message", "Email already exists");
+        return ResponseEntity.badRequest().body(errors);
+        // so one error is for the developer to squash bugs and the other
+        // is for the client 
+    }
+
+    @ExceptionHandler(PatientNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handlePatientNotFoundException(PatientNotFoundException ex){
+        log.warn("This specific patient could not be found {}", ex.getMessage());
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Patient not found"); 
         return ResponseEntity.badRequest().body(errors);
     }
 

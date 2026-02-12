@@ -103,3 +103,15 @@ Currently working on implementing an error message for when there is a user with
 Added the method to the patient repo and now I'll use that in my patien service.
 
 So I had to define a new exception class for my email already exists exception. 
+
+### 12th February 2026 - 
+
+Now trying to figure out the issues with the log not being resolved, since I need to be able to write custom logs for specific errors, such as an email address not being unique. I am using the logger from the sl4j library since it is the industry standard used in production grade applications. 
+
+Okay the message defined in the log is what is returned to client once the request is made and the other messages are seen in the console itself. Since the application.properties file was modified, the full error message outline in the createPatient is seen on the console. 
+
+There are two messages seen on the console, the first message is just the exception itself and the second message outlines what exception it belongs to, so the EmailAlreadyExistsException
+
+The next method to implement is to update a patient. Now I have to create a PatientNotFoundException for when it cannot find the patient by specified id.
+
+Had to do very similar code to the email already exists exception for the patient not found exception.
