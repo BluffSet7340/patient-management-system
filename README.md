@@ -115,3 +115,17 @@ There are two messages seen on the console, the first message is just the except
 The next method to implement is to update a patient. Now I have to create a PatientNotFoundException for when it cannot find the patient by specified id.
 
 Had to do very similar code to the email already exists exception for the patient not found exception.
+
+### 13th February 2026 - 
+
+The endpoint for the update patient is done and now I should be able to update a patient via its ID. 
+
+What is cool that after updating the patient details when you call the .save() method JPA understand that an existing patient is being updated, since it know that this patient exists and has the matching ID. 
+
+I think if you do not add all the fields, whether they're being updated or not, the transaction fails and you get internal server error. The patient request dto already has a the @Not blank validation but the controller needs to enforce it?
+
+Adding the validation check and now I get better errors that are more readable. Still getting the registration email is missing error but that should not be updated so we use validation groups, adding custom validation stuff for each of the properties I guess. 
+
+NotBlank does not allow empty content, whether that be null or empty spaces. 
+
+NotNull does not allow null values but the fields can be empty?

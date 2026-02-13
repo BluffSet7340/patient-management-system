@@ -73,6 +73,9 @@ public class PatientService {
         patient.setEmail(patientRequestDTO.getEmail());
 
         // reg date cannot be changed but what if the person enters it wrong then it's over
+        // jpa handles the update for it and returns it to us. 
+        Patient updatedPatient = patientRepository.save(patient); // save patient to repository
+        return PatientMapper.toDTO(updatedPatient); // returns type of patientreposonsedto
 
     }
 
