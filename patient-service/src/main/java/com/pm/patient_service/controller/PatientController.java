@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pm.patient_service.dto.PatientRequestDTO;
 import com.pm.patient_service.dto.PatientResponseDTO;
+import com.pm.patient_service.dto.validators.CreatePatientValidationGroup;
 import com.pm.patient_service.service.PatientService;
 
 import jakarta.validation.Valid;
@@ -48,8 +49,9 @@ public class PatientController {
     // the PatientRequestDTO class
     // @RequestBody tells SpringBoot to take the incoming JSON object and convert it to a a
     // Java object of type PatientRequestDTO 
+    // runs the default validation properties for the patientresponsedto and also the extra validation properties for the PatientValidationGroup class
     @PostMapping()
-    public ResponseEntity<PatientResponseDTO> addPatient(@Valid @RequestBody
+    public ResponseEntity<PatientResponseDTO> addPatient(@Validated({Default.class, CreatePatientValidationGroup.class}) @RequestBody
         PatientRequestDTO patientRequestDTO){
             // we call the createpatient passing in the requestdto and we save a patient to 
             // the db and we return the patient responsedto to the client

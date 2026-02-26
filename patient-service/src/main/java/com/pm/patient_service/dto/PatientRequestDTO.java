@@ -1,9 +1,10 @@
 package com.pm.patient_service.dto;
 // add the properties that we expect when we receive a request
 
+import com.pm.patient_service.dto.validators.CreatePatientValidationGroup;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class PatientRequestDTO {
@@ -25,7 +26,8 @@ private String dateOfBirth;
 private String address;
 
 // when the clinician is entering the registration date of a patient, through the frontend perhaps
-@NotBlank(message = "Date of registration is required")
+// want this property to be part of this validation class
+@NotBlank(groups=CreatePatientValidationGroup.class, message = "Date of registration is required")
 private String registrationDate;
 
 public String getName() {

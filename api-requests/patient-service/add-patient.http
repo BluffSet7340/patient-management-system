@@ -5,8 +5,8 @@ Content-Type: application/json
     "name": "Omar Adolf",
     "address": "123 Dubai Hills, Dubai, United Arab Emirates",
     "email": "john.doe@example.com",
-    "registrationDate": "2026-01-25",
-    "dateOfBirth": "2000-06-30"
+    "dateOfBirth": "2000-06-30",
+    "registrationDate": "2025-12-02"
 }
 
 # content header is the type of the original resouce, so sending this as a json file, informs the client of the returned data

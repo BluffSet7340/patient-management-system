@@ -129,3 +129,9 @@ Adding the validation check and now I get better errors that are more readable. 
 NotBlank does not allow empty content, whether that be null or empty spaces. 
 
 NotNull does not allow null values but the fields can be empty?
+
+### 15th February 2026 -
+
+Valid is the standard Java annotation and Validated is the Spring specific annotation. 
+
+Once a successful put request is made, SpringBoot returns the patient repose DTO. 
