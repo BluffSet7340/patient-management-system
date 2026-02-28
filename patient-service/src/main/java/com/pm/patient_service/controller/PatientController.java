@@ -13,9 +13,11 @@ import com.pm.patient_service.dto.PatientResponseDTO;
 import com.pm.patient_service.dto.validators.CreatePatientValidationGroup;
 import com.pm.patient_service.service.PatientService;
 
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.groups.Default;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/patients") // handles all requests starting with "patient"
+@Tag(name = "Patient", description = "API for managing patients") // tag controller for open ai
 public class PatientController {
     // private, can only be accessed within its own class only
     // and final means that once the reference is init, it cannot be changed or reassigned
@@ -37,6 +40,7 @@ public class PatientController {
     // returns a response entity with a list of patient dtos
     // creates the http response for us
     @GetMapping
+    @Operation(summary = "Get all Patients" ) // open ai knows that this is a get request, more options can be added
     public ResponseEntity<List<PatientResponseDTO>> getPatients(){
         List<PatientResponseDTO> patients = patientService.getPatients();
 
@@ -51,6 +55,7 @@ public class PatientController {
     // Java object of type PatientRequestDTO 
     // runs the default validation properties for the patientresponsedto and also the extra validation properties for the PatientValidationGroup class
     @PostMapping()
+    @Operation(summary = "Create a new patient" )
     public ResponseEntity<PatientResponseDTO> addPatient(@Validated({Default.class, CreatePatientValidationGroup.class}) @RequestBody
         PatientRequestDTO patientRequestDTO){
             // we call the createpatient passing in the requestdto and we save a patient to 
@@ -69,10 +74,18 @@ public class PatientController {
     
     // the validated tag refers to the patient request dto in the request body, validate requests using all default specified in that dto specifially 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a Patient" )
     public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable UUID id, @Validated({Default.class}) @RequestBody PatientRequestDTO patientRequestDTO){
 
         PatientResponseDTO patientResponseDTO = patientService.updatePatient(id, patientRequestDTO);
 
         return ResponseEntity.ok().body(patientResponseDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a Patient" )
+    public ResponseEntity<Void> deletePatient(@PathVariable UUID id){
+            patientService.deletePatient(id);
+            return ResponseEntity.noContent().build(); // status code of 204 - no content
     }
 }

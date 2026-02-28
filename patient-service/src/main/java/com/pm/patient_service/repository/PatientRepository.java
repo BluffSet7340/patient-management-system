@@ -14,5 +14,5 @@ import com.pm.patient_service.model.Patient;
 public interface PatientRepository extends JpaRepository<Patient, UUID> {
 // define custom methods to expose to the patient service
     boolean existsByEmail(String email); //exposing this method - JPA handles this behind the scenes
-
+    boolean existsByEmailAndIdNot(String email, UUID id );
 }

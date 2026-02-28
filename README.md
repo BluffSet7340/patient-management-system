@@ -135,3 +135,47 @@ NotNull does not allow null values but the fields can be empty?
 Valid is the standard Java annotation and Validated is the Spring specific annotation. 
 
 Once a successful put request is made, SpringBoot returns the patient repose DTO. 
+
+### 26th February 2026 -
+
+Leaving all else the same and trying to update the patient name gives me an email already exists error. Issue fixed by removing the code that checks if an email address already exists in the update patient function.
+
+The correct fix was to add a boolean in the patient repo interface that checks if any patient except for the one that it just found has the same email id. JPA handles this for us?
+
+Derived query methods are cool - spring figures out the query under the hood based on the naming convention used.
+
+Onwards to the delete patient endpoint. The controller returns a void so you receive a 204 no content response after deleting a patient. 
+
+The patient service restarts with the same fresh copy of the data.sql file so changes are not persistent. 
+
+Onto using swagger / openai to create api documentation. SpringBoot has a package to create such documentation
+
+### 27th February 2026 - 
+
+Viewed the swagger docs through the editor. 
+
+### 28th February 2026 -
+
+Used this [tutorial](https://learn.microsoft.com/en-us/visualstudio/docker/tutorials/docker-tutorial?WT.mc_id=vscode_docker_aka_getstartedwithdocker) to get started with docker on vscode 
+
+PS does not like back slashes but is okay with back ticks
+
+Used Claude to help me create the docker command.
+
+Squashed some bugs with the help of Claude when running the docker command.
+
+Created Docker to emulate a producion environment.
+
+Dockerfile - instructions to create docker image
+
+Now add some config to the dockerfile and build an image
+
+Commented out the config inside the application.properties file since we using Docker now
+
+Openjdk is deprecated and need to use alternatives - suggested by Claude
+
+Port issues with Docker - redoing it again
+
+Some port issues since postgres by default uses port 5432.
+
+Had lots of issues with running both the patient-service and patient-service-db containers due to port issues, file path issues and not waiting long enough for the container to init and to be ready for a connection

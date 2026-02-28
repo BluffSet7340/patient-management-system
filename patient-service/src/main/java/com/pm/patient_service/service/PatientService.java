@@ -58,9 +58,9 @@ public class PatientService {
         Patient patient = patientRepository.findById(id).orElseThrow(()-> new PatientNotFoundException("Patient not found with id: " + id));
 
         // patient is found but we also want to check if the email already exists
-        if(patientRepository.existsByEmail(patientRequestDTO.getEmail())){
+        if(patientRepository.existsByEmailAndIdNot(patientRequestDTO.getEmail(), id)){
             // we have to define this custom exception in the globalExceptionHandlerException
-            throw new EmailAlreadyExistsException("A patient with this email already exists " +
+            throw new EmailAlreadyExistsException("Another patient with this email already exists " +
                 patientRequestDTO.getEmail()
             );
         }
@@ -76,6 +76,11 @@ public class PatientService {
         // jpa handles the update for it and returns it to us. 
         Patient updatedPatient = patientRepository.save(patient); // save patient to repository
         return PatientMapper.toDTO(updatedPatient); // returns type of patientreposonsedto
+
+    }
+    public void deletePatient(UUID id){
+        // not return anyting so no need to declare patient variable
+        patientRepository.deleteById(id);
 
     }
 

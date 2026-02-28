@@ -2,10 +2,10 @@ PUT http://localhost:5000/patients/123e4567-e89b-12d3-a456-426614174000
 Content-Type: application/json 
 
 {
-    "name": "John Doe Mike",
+    "name": "John Doe virus name",
     "address": "123 main lake",
     "dateOfBirth": "2023-11-28",
-    "email": "ebola123@email.com"
+    "email": "ebola33@email.com"
 }
 
 # updates existing patient entity
