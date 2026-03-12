@@ -216,4 +216,16 @@ The protofile has to be copied for each service, in production it'd be located i
 
 ### 12th March 2026 -
 
-Claude Code helped me with debugging the version conflicts of google's protobuf and the os-maven-plugin. Running mvn clean compile to install necessary packages. Still debugging issues with the grpc service not being imported into the grpc package of patient-service. Okay I was able to fix the issue now. Claude suggested that the issue lied with VsCode and told me clear the Java serve workspace that seems to have resolved the issue.  
+Claude Code helped me with debugging the version conflicts of google's protobuf and the os-maven-plugin. Running mvn clean compile to install necessary packages. Still debugging issues with the grpc service not being imported into the grpc package of patient-service. Okay I was able to fix the issue now. Claude suggested that the issue lied with VsCode and told me clear the Java serve workspace that seems to have resolved the issue. 
+
+Bug fixing cuz I spelt the class wrongly. Rebuilt docker container from updated patient service image and the logs are working now finally.
+
+Onto implementing Kafka - an asynchronous system that can be used to dispatch events that are consumed by microservices without waiting for a response. It also is not affected by the downfall of one or more microservices. 
+
+Kafka broker is the server that sends and receives between kafka producers and consumers. The kafka broker pulls and send messages based on matching categories. The kafka consumer consumes events / messages based on their specified categories. The kafka producer produces events for consumption by the kafka consumer. The event is a message that can be of any datatype - json, protobuf, etc. 
+
+Kafka is ideal for 1 to many microservice communication where immediate responses are not required. 
+
+First setup the kafka broker - the server to manage Kafka events
+
+The bitnami kafka is not supported anymore so using cd-kafka as suggested by Claude

@@ -2,9 +2,9 @@ POST http://localhost:5000/patients
 Content-Type: application/json 
 
 {
-    "name": "Omar Adolf",
+    "name": "Sammy Adolf",
     "address": "123 Dubai Hills, Dubai, United Arab Emirates",
-    "email": "john.doe@example.com",
+    "email": "sammy.virus@example.com",
     "dateOfBirth": "2000-06-30",
     "registrationDate": "2025-12-02"
 }

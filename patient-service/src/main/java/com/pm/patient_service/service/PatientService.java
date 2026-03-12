@@ -12,15 +12,20 @@ import com.pm.patient_service.dto.PatientResponseDTO;
 import com.pm.patient_service.mapper.PatientMapper;
 import com.pm.patient_service.exception.EmailAlreadyExistsException;
 import com.pm.patient_service.exception.PatientNotFoundException;
+import com.pm.patient_service.grpc.BillingServiceGrpcClient;
+
 import java.time.LocalDate;
 
 @Service
 public class PatientService {
     private PatientRepository patientRepository;
+    // define variable for billing service client
+    private final BillingServiceGrpcClient billingServiceGrpcClient;
 
-    // this is a constructor I believe 
-    public PatientService(PatientRepository patientRepository){
+    // constructor 
+    public PatientService(PatientRepository patientRepository, BillingServiceGrpcClient billingServiceGrpcClient){
         this.patientRepository = patientRepository;
+        this.billingServiceGrpcClient = billingServiceGrpcClient;
     }
 
     // service layer converts domain entity model into DTO
@@ -44,8 +49,11 @@ public class PatientService {
         }
 
         Patient newPatient =  patientRepository.save(PatientMapper.toModel(patientRequestDTO)); // .save() is provided by JPA
+
+        // when patient is created successfully, we create a billing account for them
+        billingServiceGrpcClient.createBillingAccount(newPatient.getId().toString(), newPatient.getName(), newPatient.getEmail());
                 
-        // then return the newly added patient as DTO
+        // then return the newly added patient as DTO, rest request
         return PatientMapper.toDTO(newPatient); 
     }
 
