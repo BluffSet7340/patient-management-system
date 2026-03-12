@@ -1,0 +1,23 @@
+syntax = "proto3";
+// split code gen into separate files
+option java_multiple_files = true;
+option java_package = "billing";
+
+service BillingService {
+    // rpc method
+    rpc CreateBillingAccount (BillingRequest) returns (BillingResponse);
+}
+
+// define types BillingRequest and BillingResponse, similar to a DTO
+
+message BillingRequest {
+  string patient_id = 1; // setting to 1 helps with serialization and deserialization, the numbers have to be unique
+  string name = 2;
+  string email = 3;
+
+}
+
+message BillingResponse {
+  string account_id = 1; // billing account ID
+  string status = 2;
+}

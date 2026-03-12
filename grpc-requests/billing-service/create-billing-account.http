@@ -1,0 +1,8 @@
+# this only works in postman
+GRPC localhost:9001/BillingService/CreateBillingAccount
+
+{
+    "patient_id": "1738",
+    "name": "Ebola virus",
+    "email": "john.doe@example.com"
+}

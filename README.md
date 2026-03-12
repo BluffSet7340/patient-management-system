@@ -179,3 +179,41 @@ Port issues with Docker - redoing it again
 Some port issues since postgres by default uses port 5432.
 
 Had lots of issues with running both the patient-service and patient-service-db containers due to port issues, file path issues and not waiting long enough for the container to init and to be ready for a connection
+
+### 3rd March 2026 - 
+
+Any changes to code, restart the container and get it running. Need to install extensions so that I can create a connection to my database. I used SQLTools Extension and the postgresql driver and somehow it worked.
+
+Right clicked on the table in my connections and I can see my records alhamdulillah. The Get request is working. 
+
+gRPC is a super fast protocol built on HTTP 2 used for efficient communication between microservices, similar to how REST is used for communication between the frontend and the backend. Instead of JSON, we use Protobuf for rGPC.
+
+The .proto file is used to define the data structure of the object you're working with. Then the code for the getters and setters are automatically generated. We describe the grpc server with this - what methods and responses will look like. If any changes are made, all microservices can adapt by regenerating the code again. Great for adding more microservices. Proto file can be stored as maven package or stored in the cloud. In my case I'll just copy the .proto file to all microservices
+
+A billing service will be created next.
+
+Okay I need to figure out how I'll add a module of type springboot in vscode. A new module is akin to creating a new microservice. In my case I just created a new Java project with the necessary config using only SpringBoot web as my dependecy. Now have to add depedency for protobuff and grpc. Need to add some build steps to generate the protobuff code anytime the app is started
+
+### 4th March 2026 - 
+
+Created my first protofile. Use the dependency in the pom file to generate the grpc code based on the protofile defined. This is done by using the Maven compile command for the billing-service. The generated code is found under the protobuf folder under the target folder. A stub has been created called BillingServiceGrpc.java. Under the Java folder, we have files for the request and response, generated based on the protofile, similar to a DTO. 
+
+Config the grpc server to start whenever SpringBoot starts
+
+### 7th March 2026 - 
+
+Testing the gRPC service. The service is now working according to the logs. Next is to make the request to create a patient's billing account. Uses http 2 under the hood so easy to test the server. 
+
+The first line of req is broken down into - protocol address and port/name of service/name of method of service. Still issues with the grpc service.
+
+I could not get it to work inside of vscode so I used postman and it works, I got the response with the account id and the status.
+
+Onto dockerizing billing service.
+
+### 11th March 2026 - 
+
+The protofile has to be copied for each service, in production it'd be located in a central location. 
+
+### 12th March 2026 -
+
+Claude Code helped me with debugging the version conflicts of google's protobuf and the os-maven-plugin. Running mvn clean compile to install necessary packages. Still debugging issues with the grpc service not being imported into the grpc package of patient-service. Okay I was able to fix the issue now. Claude suggested that the issue lied with VsCode and told me clear the Java serve workspace that seems to have resolved the issue.  

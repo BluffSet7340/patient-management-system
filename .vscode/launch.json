@@ -9,6 +9,16 @@
             "projectName": "patient-service",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-BillingServiceApplication<billing-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.pm.billing_service.BillingServiceApplication",
+            "projectName": "billing-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
