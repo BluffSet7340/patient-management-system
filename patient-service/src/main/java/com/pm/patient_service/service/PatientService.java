@@ -1,5 +1,6 @@
 package com.pm.patient_service.service;
 
+import com.pm.patient_service.kafka.KafkaProducer;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,14 +19,16 @@ import java.time.LocalDate;
 
 @Service
 public class PatientService {
+    private final KafkaProducer kafkaProducer;
     private PatientRepository patientRepository;
     // define variable for billing service client
     private final BillingServiceGrpcClient billingServiceGrpcClient;
 
     // constructor 
-    public PatientService(PatientRepository patientRepository, BillingServiceGrpcClient billingServiceGrpcClient){
+    public PatientService(PatientRepository patientRepository, BillingServiceGrpcClient billingServiceGrpcClient, KafkaProducer kafkaProducer){
         this.patientRepository = patientRepository;
         this.billingServiceGrpcClient = billingServiceGrpcClient;
+        this.kafkaProducer = kafkaProducer;
     }
 
     // service layer converts domain entity model into DTO
@@ -52,6 +55,9 @@ public class PatientService {
 
         // when patient is created successfully, we create a billing account for them
         billingServiceGrpcClient.createBillingAccount(newPatient.getId().toString(), newPatient.getName(), newPatient.getEmail());
+
+        // send kafka event when patient is created
+        kafkaProducer.sendEvent(newPatient);
                 
         // then return the newly added patient as DTO, rest request
         return PatientMapper.toDTO(newPatient); 

@@ -136,20 +136,45 @@
     <version>4.29.1</version>
 </dependency>
 
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-kafka</artifactId>
+</dependency>
+
+
+
 	</dependencies>
 
 
 
 <build>
-    <extensions>
+    <!-- <extensions> -->
         <!-- Ensure OS compatibility for protoc -->
-        <extension>
+        <!-- <extension>
             <groupId>kr.motd.maven</groupId>
             <artifactId>os-maven-plugin</artifactId>
             <version>1.7.1</version>
         </extension>
-    </extensions>
+    </extensions> -->
+
     <plugins>
+		<!-- // Source - https://stackoverflow.com/a/61271808
+// Posted by Massimo
+// Retrieved 2026-03-15, License - CC BY-SA 4.0 -->
+
+    <plugin>
+      <groupId>kr.motd.maven</groupId>
+      <artifactId>os-maven-plugin</artifactId>
+      <version>1.6.2</version>
+      <executions>
+        <execution>
+          <phase>initialize</phase>
+          <goals>
+            <goal>detect</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
         <!-- Spring boot / maven  -->
         <plugin>
             <groupId>org.springframework.boot</groupId>

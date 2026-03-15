@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/patients") // handles all requests starting with "patient"
-@Tag(name = "Patient", description = "API for managing patients") // tag controller for open ai
+@Tag(name = "Patient", description = "API for managing patients") // tag controller for open api
 public class PatientController {
     // private, can only be accessed within its own class only
     // and final means that once the reference is init, it cannot be changed or reassigned

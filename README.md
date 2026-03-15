@@ -229,3 +229,11 @@ Kafka is ideal for 1 to many microservice communication where immediate response
 First setup the kafka broker - the server to manage Kafka events
 
 The bitnami kafka is not supported anymore so using cd-kafka as suggested by Claude
+
+### 15th March 2026 - 
+
+Created a connection to kafka. Using an extension to create and manage kafka brokers. Tested the consumer and producer and it works. Created protofile that will act as a kafka event. Reloading developer windows helps with debugging
+
+os.detected.classifer giving issues with the variable not resolved so I decided to import the os-maven as a plugin instead of extension as suggested by stack overflow. Had to use different dependency for kafka. 
+
+Adding new patient does not show any message being consumed by the kafka consume have to debug this. When application.properties changes image needs to be rebuilt. Had wrong values for spring boot kafka env variables. The kafka extension already decoded the base64 value for me? Billing Service also works for me
