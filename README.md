@@ -236,4 +236,13 @@ Created a connection to kafka. Using an extension to create and manage kafka bro
 
 os.detected.classifer giving issues with the variable not resolved so I decided to import the os-maven as a plugin instead of extension as suggested by stack overflow. Had to use different dependency for kafka. 
 
-Adding new patient does not show any message being consumed by the kafka consume have to debug this. When application.properties changes image needs to be rebuilt. Had wrong values for spring boot kafka env variables. The kafka extension already decoded the base64 value for me? Billing Service also works for me
+Adding new patient does not show any message being consumed by the kafka consume have to debug this. When application.properties changes image needs to be rebuilt. Had wrong values for spring boot kafka env variables. The kafka extension already decoded the base64 value for me? Billing Service also works for me.
+
+### 22nd March 2026 - 
+
+This is what I have learnt so far. In this project when the new patient is created we send a request to the billing service via grpc to create a billing service immediately for the patient and then a kafka message is sent that corresponds to the patient kafka topic. This is done in the KafkaProducer java file where the template of the Kafka message is defined - we have a String and a byte array. The message is decoded from base64 but is still unreadable. 
+The message in Byte array will be converted to a Java Object.
+
+The KafkaConsumer is created inside of the analytics-service. Reloading Java Workspace seems to fix issues with classes not resolving. 
+
+
