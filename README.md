@@ -243,6 +243,6 @@ Adding new patient does not show any message being consumed by the kafka consume
 This is what I have learnt so far. In this project when the new patient is created we send a request to the billing service via grpc to create a billing service immediately for the patient and then a kafka message is sent that corresponds to the patient kafka topic. This is done in the KafkaProducer java file where the template of the Kafka message is defined - we have a String and a byte array. The message is decoded from base64 but is still unreadable. 
 The message in Byte array will be converted to a Java Object.
 
-The KafkaConsumer is created inside of the analytics-service. Reloading Java Workspace seems to fix issues with classes not resolving. 
+The KafkaConsumer is created inside of the analytics-service. Reloading Java Workspace seems to fix issues with classes not resolving. Analytics service is done and now onwards to Dockerizing the container. 
 
 
