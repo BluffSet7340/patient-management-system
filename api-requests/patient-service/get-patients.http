@@ -1,2 +1,4 @@
 # GET request to get all patients
-GET http://localhost:5000/patients
+# GET http://localhost:5000/patients request not working since port is now closed
+
+GET http://localhost:5004/api/patients

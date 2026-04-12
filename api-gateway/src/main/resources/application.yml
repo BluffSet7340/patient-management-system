@@ -1,0 +1,33 @@
+server:
+ port: 5004
+
+spring:
+ cloud:
+  gateway:
+   routes:
+   ## Rest client -> http://localhost:5004/api/patients
+   ## api gateway -> http://patient-service:5000/patients
+   ## patient service (Spring Boot app) -> /patients -> Patients Array 
+    - id: patient-service-route
+    # where the request ends up
+      uri: http://patient-service:5000
+    #   determine what request is sent to patient-service
+      predicates: 
+        - Path=/api/patients/**
+      filters:
+    #   strip out the /api part and run the request
+        - StripPrefix=1
+      
+   ## Rest client -> http://localhost:5004/api-docs/patients
+   ## api gateway -> http://patient-service:5000/v3/api-docs 
+    - id: api-docs-patient-route
+    # where the request ends up
+      uri: http://patient-service:5000
+    #   determine what request is sent to patient-service
+      predicates: 
+        - Path=/api-docs/patients
+      filters:
+    #   rewrite from left to right
+        - RewritePath=/api-docs/patients,/v3/api-docs
+
+# api gateway to called and the api gateway calls the service on our behalf

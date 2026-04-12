@@ -245,4 +245,16 @@ The message in Byte array will be converted to a Java Object.
 
 The KafkaConsumer is created inside of the analytics-service. Reloading Java Workspace seems to fix issues with classes not resolving. Analytics service is done and now onwards to Dockerizing the container. 
 
+Containerized the analytics-service container after completing implementation of the KafkaConsumer file
 
+### 25th March 2026 - 
+
+Based on logs, the analytics-service is not subscribed to the patient topic. 
+
+After adding the new patient, the logs in billing service works, we see the request for create billing account for said patient, then the analytics-service consumed a kafka event of said patient.
+
+Rather that connecting the frontend to separate, exposed urls to the patient-service and analytics-service that may change over time or more services may be added in the future, we make the frontend interact with the API gateway. The API gateway will act as the one stop shop to access all the services behind it, removing the need to access the direct urls of those microservices. The API gateway does the routing for the rest requests made by the client. This also protects the microservices from being hacked and allows for scalable architecture, i.e adding more microservices like auth. The api gateway will essentially be a microservice
+
+### 6th April 2026 - 
+
+Now onto dockerizing the api gateway. Having 404 error when trying to access all patient via request to the api-gateway. Likely it is an issue with the application.yml file
