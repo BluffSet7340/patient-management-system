@@ -4,29 +4,31 @@ server:
 spring:
  cloud:
   gateway:
-   routes:
+   server:
+    webflux:
+     routes:
    ## Rest client -> http://localhost:5004/api/patients
    ## api gateway -> http://patient-service:5000/patients
    ## patient service (Spring Boot app) -> /patients -> Patients Array 
-    - id: patient-service-route
+      - id: patient-service-route
     # where the request ends up
-      uri: http://patient-service:5000
+        uri: http://patient-service:5000
     #   determine what request is sent to patient-service
-      predicates: 
+        predicates: 
         - Path=/api/patients/**
-      filters:
+        filters:
     #   strip out the /api part and run the request
         - StripPrefix=1
-      
+        
    ## Rest client -> http://localhost:5004/api-docs/patients
    ## api gateway -> http://patient-service:5000/v3/api-docs 
-    - id: api-docs-patient-route
+      - id: api-docs-patient-route
     # where the request ends up
-      uri: http://patient-service:5000
+        uri: http://patient-service:5000
     #   determine what request is sent to patient-service
-      predicates: 
+        predicates: 
         - Path=/api-docs/patients
-      filters:
+        filters:
     #   rewrite from left to right
         - RewritePath=/api-docs/patients,/v3/api-docs
 

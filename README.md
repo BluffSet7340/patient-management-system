@@ -258,3 +258,13 @@ Rather that connecting the frontend to separate, exposed urls to the patient-ser
 ### 6th April 2026 - 
 
 Now onto dockerizing the api gateway. Having 404 error when trying to access all patient via request to the api-gateway. Likely it is an issue with the application.yml file
+
+### 12th April 2026 - 
+
+Debugging why the API gateway is unable to connect to the patient-service. Claude suggested issues with the indentation which was wrong since I checked and verified it. What was correct was modifying the yml file itself to match the spec of springboot 4. I got that information from the YouTube comments.
+
+The way the api-gateway works is that is uses a DNS resolver in the internal network to resolve the IP addresses that belong to a specific container using the container's name and routes that request to that container on that port.
+
+The URL for accessing the openapi definitions is working. 
+
+JWTs will be used for the auth service. Variety of databases can be used for different microservices - depends on the usecase. Postgresql database will be used for fetching and managing authentication. Now the auth-service will be created to manage user accounts and JWT.

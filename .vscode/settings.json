@@ -12,9 +12,21 @@
             "database": "db",
             "username": "admin",
             "password": "password123"
+        },
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 4001,
+            "driver": "PostgreSQL",
+            "name": "auth-service-db",
+            "username": "admin",
+            "password": "password123",
+            "database": "db"
         }
     ],
     "protobuf.externalLinter.enabled": true,
     "protobuf.externalLinter.linter": "buf",
-    "protobuf.externalLinter.bufPath": "c:\\Users\\sbm76\\AppData\\Roaming\\Code\\User\\globalStorage\\drblury.protobuf-vsc\\bin\\buf.exe"
+    "protobuf.externalLinter.bufPath": "c:\\Users\\sbm76\\AppData\\Roaming\\Code\\User\\globalStorage\\drblury.protobuf-vsc\\bin\\buf.exe",
+    "java.project.sourcePaths": []
 }
