@@ -268,3 +268,12 @@ The way the api-gateway works is that is uses a DNS resolver in the internal net
 The URL for accessing the openapi definitions is working. 
 
 JWTs will be used for the auth service. Variety of databases can be used for different microservices - depends on the usecase. Postgresql database will be used for fetching and managing authentication. Now the auth-service will be created to manage user accounts and JWT.
+
+### 15th April 2026 - 
+
+Docker build to create an image, docker create to create a container from said image and docke run to create and start a container from an image.
+
+Now onwards to creating the login endpoint. 
+
+### 17th April 2026 - 
+
