@@ -2,15 +2,41 @@ package com.pm.auth_service.service;
 
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pm.auth_service.dto.LoginRequestDTO;
-import com.pm.auth_service.model.User;
+import com.pm.auth_service.util.JwtUtil;
 
 @Service // belongs to service layer and handles business logic
 public class AuthService {
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
+
+    // dependency injection
+    public AuthService(UserService userService, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
+    }
+
     public Optional<String> authenticate(LoginRequestDTO loginRequestDTO) {
         // first grab user from the db via email
-        Optional<User> user = UserService.findByEmail(loginRequestDTO.getEmail());
+        // UserService is extensible, can have all the business logic and easily
+        // accessible
+        Optional<String> token = userService.findByEmail(loginRequestDTO.getEmail())
+                // the us variable is the result of the call of the findByEmail
+                // passwordEncoder checks if the hashes match
+                .filter(u -> passwordEncoder.matches(loginRequestDTO.getPassword(), u.getPassword())) // every request
+                                                                                                      // passes through
+                                                                                                      // the filter
+                                                                                                      // chain
+                // if match is successful it passes the user down the chain into the map
+                // function
+                // and uses jwtUtil to generate a token using the email and role
+                .map(u -> jwtUtil.generateToken(u.getEmail(), u.getRole()));
+
+        return token;
     }
 }

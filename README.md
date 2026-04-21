@@ -275,5 +275,10 @@ Docker build to create an image, docker create to create a container from said i
 
 Now onwards to creating the login endpoint. 
 
-### 17th April 2026 - 
+### 21st April 2026 - 
+
+Do not leave spaces between the variable name and value assigned when trying to start up a docker container. 
+
+The auth service container is not starting so debugging the issue. Okay it works now and I believe the issue was with the JWT_SECRET not being pasted properly when trying to run the container 
+
 

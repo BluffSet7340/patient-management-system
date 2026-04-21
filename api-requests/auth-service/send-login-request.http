@@ -1,0 +1,2 @@
+# log a user in
+POST http://localhost:4005
