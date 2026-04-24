@@ -20,9 +20,9 @@
             "port": 4001,
             "driver": "PostgreSQL",
             "name": "auth-service-db",
+            "database": "db",
             "username": "admin",
-            "password": "password123",
-            "database": "db"
+            "password": "password123"
         }
     ],
     "protobuf.externalLinter.enabled": true,

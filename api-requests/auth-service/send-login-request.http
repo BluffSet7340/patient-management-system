@@ -1,2 +1,8 @@
 # log a user in
-POST http://localhost:4005
+POST http://localhost:4005/login
+Content-Type: application/json
+
+{
+    "email": "test@email.com",
+    "password": "password123"
+}

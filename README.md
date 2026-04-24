@@ -281,4 +281,8 @@ Do not leave spaces between the variable name and value assigned when trying to 
 
 The auth service container is not starting so debugging the issue. Okay it works now and I believe the issue was with the JWT_SECRET not being pasted properly when trying to run the container 
 
+### 24th April 2026 - 
 
+Another error found by mismatching field names in the User.java file and the data.sql file. Next time when building an image from scratch, use the --no-cache flag. Another bug where the login endpoint either cannot be reached or wrong credentials. So I pasted the controller code into Claude and it pointed out that the RequestBody annotation was being imported from openapi and not springframework. This fixed the issue.
+
+So the header of the payload and the payload itself (which doesn't contain the password) is signed with the secret key and that gives you the token. That token is then used for any operations that require a user to be authenticated. 

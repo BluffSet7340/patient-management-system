@@ -13,9 +13,11 @@ public class SecurityConfig {
     // HttpSecurity defines all the security rules
     // SecurityFilterChain is what Spring uses to protect the application
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{httpSecurity.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll()).csrf(AbstractHttpConfigurer::disable);
-        // csrf is disabled 
-    return httpSecurity.build();
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+                .csrf(AbstractHttpConfigurer::disable);
+        // csrf is disabled
+        return httpSecurity.build();
     }
 
     // returns the passwordencoder function

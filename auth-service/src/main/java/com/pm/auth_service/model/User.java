@@ -13,11 +13,11 @@ import jakarta.persistence.Column;
 
 // User class is mapped to "users" entity
 @Entity // class represents a db table and it should be persisted
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID userId;
+    private UUID id;
 
     // adding columns to a User
     @Column(unique = true, nullable = false)
@@ -30,12 +30,12 @@ public class User {
     @Column(nullable = false)
     private String role;
 
-    public UUID getUserId() {
-        return userId;
+    public UUID getId() {
+        return id;
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getEmail() {
