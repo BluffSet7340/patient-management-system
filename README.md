@@ -286,3 +286,17 @@ The auth service container is not starting so debugging the issue. Okay it works
 Another error found by mismatching field names in the User.java file and the data.sql file. Next time when building an image from scratch, use the --no-cache flag. Another bug where the login endpoint either cannot be reached or wrong credentials. So I pasted the controller code into Claude and it pointed out that the RequestBody annotation was being imported from openapi and not springframework. This fixed the issue.
 
 So the header of the payload and the payload itself (which doesn't contain the password) is signed with the secret key and that gives you the token. That token is then used for any operations that require a user to be authenticated. 
+
+### 27th April 2026 - 
+
+Working on completing the authentication flow. Completed the validateToken method. I used Postman to test the validate endpoint. I have to rebuild my image before testing the auth-service. I tested the token received from the login endpoint and sent that to the validate endpoint. It is working just fine now. 
+
+All requests through the various services will go to the gateway first at all times. The StripPrefix takes an integer and determines the number of parts to remove after the first slash, each slash has one part. 
+
+I was confused about how it worked but Claude explained it to me.
+
+The flow is simple: send a request from frontend to api gateway. If it has auth, a specific route is triggered and that request is forwarded to the docker contaner with the "/login" path. Then SpringBoot has this dispatcher servlet that looks for a controller mapped to post login, finds it and executes whatever is in that body and boom the request is handled. 
+
+Simulated a test request sent from the frontend to the api-gateway, it works and the token has been received alhamdulillah
+
+The route added to the api-gateway handles requests for login and validate. Both have been tested and we are good to go. Port bindings removed from auth-service since we do not want it to be accessed by others on the internet

@@ -7,6 +7,16 @@ spring:
    server:
     webflux:
      routes:
+   ## Rest client -> http://localhost:5004/auth/login
+   ## api gateway -> http://auth-service:4005/login
+      - id: auth-service-route
+        uri: http://auth-service:4005
+        predicates: 
+        # sends request to auth-service if the url has auth in it
+        - Path=/auth/**
+        filters:
+        - StripPrefix=1
+
    ## Rest client -> http://localhost:5004/api/patients
    ## api gateway -> http://patient-service:5000/patients
    ## patient service (Spring Boot app) -> /patients -> Patients Array 

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.pm.auth_service.dto.LoginRequestDTO;
 import com.pm.auth_service.util.JwtUtil;
 
+import io.jsonwebtoken.JwtException;
+
 @Service // belongs to service layer and handles business logic
 public class AuthService {
     private final UserService userService;
@@ -38,5 +40,16 @@ public class AuthService {
                 .map(u -> jwtUtil.generateToken(u.getEmail(), u.getRole()));
 
         return token;
+    }
+
+    // validation should also include authenticate too?
+    public Boolean validateToken(String authToken) {
+        try {
+            jwtUtil.validateToken(authToken);
+            return true;
+            // one catch block required to handle the exceptions from the validateToken method
+        } catch (JwtException e) { // invalid token causes JwtException
+            return false;
+        }
     }
 }

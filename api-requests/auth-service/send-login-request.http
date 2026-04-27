@@ -6,3 +6,13 @@ Content-Type: application/json
     "email": "test@email.com",
     "password": "password123"
 }
+
+# send login in request via frontend
+
+# POST http://localhost:5004/auth/login
+# Content-Type: application/json
+
+# {
+#     "email": "test@email.com",
+#     "password": "password123"
+# }
