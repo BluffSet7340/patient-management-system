@@ -29,6 +29,7 @@ spring:
         filters:
     #   strip out the /api part and run the request
         - StripPrefix=1
+        - JwtValidation
         
    ## Rest client -> http://localhost:5004/api-docs/patients
    ## api gateway -> http://patient-service:5000/v3/api-docs 

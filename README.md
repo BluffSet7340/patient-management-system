@@ -305,4 +305,9 @@ The route added to the api-gateway handles requests for login and validate. Both
 
 Made a mistake in not pulling before pushing and ran commands without thinking and got this section deleted.
 
-Essentially SpringBoot has a relaxed binding where you can have different naming conventions between variables in properties file and variables in java files, springboot handles it under the hood
+Essentially SpringBoot has a relaxed binding where you can have different naming conventions between variables in properties file and variables in java files, springboot handles it under the hood.
+
+SpringBoot also has this cool feature where if you specify the first half, "JwtValidation" uner the filters property in the yml file, it looks for an appropriate filter class, in this case called the JwtValidationGatewayFilterFactory and applies the filter to any incoming requests. The first half can be whatever name you want but the last half must be "GatewayFilterFactory" so that SpringBoot can detect it 
+
+
+I tested login endpoint through the api gateway it and received the token then sent a request to get all patients with that token in the authorization header and it worked
