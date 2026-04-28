@@ -300,3 +300,9 @@ The flow is simple: send a request from frontend to api gateway. If it has auth,
 Simulated a test request sent from the frontend to the api-gateway, it works and the token has been received alhamdulillah
 
 The route added to the api-gateway handles requests for login and validate. Both have been tested and we are good to go. Port bindings removed from auth-service since we do not want it to be accessed by others on the internet
+
+### 28th April 2026 - 
+
+Made a mistake in not pulling before pushing and ran commands without thinking and got this section deleted.
+
+Essentially SpringBoot has a relaxed binding where you can have different naming conventions between variables in properties file and variables in java files, springboot handles it under the hood
