@@ -7,7 +7,7 @@ import billing.BillingServiceGrpc.BillingServiceImplBase; // comes from the "bil
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
-// tell string this is a grpc service
+// tell Spring boot this is a grpc service
 @GrpcService
 public class BillingGrpcService extends BillingServiceImplBase {
 // this was not easy to understand at first I tell you what
