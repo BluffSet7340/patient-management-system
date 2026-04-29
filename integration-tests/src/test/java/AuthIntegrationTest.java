@@ -11,5 +11,6 @@ public class AuthIntegrationTest {
     @BeforeAll // signal that this should be executed before all tests in the class
     static void setUp() {
         RestAssured.baseURI = "http://localhost:5004"; // address of api-gateway
+        // a comment
     }
 }
