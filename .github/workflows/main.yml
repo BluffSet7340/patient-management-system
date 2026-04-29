@@ -24,7 +24,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build the application
-        run: mvn -B package --file pom.xml
+        run: mvn install
 
       - name: Build the dependency graph
         uses: advanced-security/maven-dependency-submission-action@v4
