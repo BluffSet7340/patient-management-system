@@ -2,13 +2,14 @@ name: Java build with Maven
 
 on: 
   push:
-    paths:
-      - "analytics-service/**"
-      - "api-gateway/**"
-      - "auth-service/**"
-      - "billing-service/**"
-      - "patient-service/**"
-      - "integration-tests/**"
+    branches: ["main"]
+      paths:
+        - "analytics-service/**"
+        - "api-gateway/**"
+        - "auth-service/**"
+        - "billing-service/**"
+        - "patient-service/**"
+        - "integration-tests/**"
 
 jobs:
 # name of the job
