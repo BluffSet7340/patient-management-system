@@ -311,3 +311,9 @@ SpringBoot also has this cool feature where if you specify the first half, "JwtV
 
 
 I tested login endpoint through the api gateway it and received the token then sent a request to get all patients with that token in the authorization header and it worked
+
+### 29th April 2026 - 
+
+In the logs of the api-gateway docker container, sending a request with a wrong token produces a 401 but during testing with Postman it returns internal server error 500. I have to debug this since status code 500 implies issue with server which is wrong. To fix this a custom exception package was added where we intercept the error response from the api-gateway, capture it and then modify it so that it returns 401 when it should. Can be modified to other errors too. Next step is to create api documentation for the auth-service.
+
+Now on to testing. I will test the rest api using an open source tool called Rest-assured. The homepages explains it simply. The integration-tests module is stored in the root of the patient-management-system

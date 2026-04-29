@@ -43,4 +43,19 @@ spring:
     #   rewrite from left to right
         - RewritePath=/api-docs/patients,/v3/api-docs
 
+
+    # same thing will be done for the auth-service documentation
+
+    ## Rest client -> http://localhost:5004/api-docs/auth
+    ## api gateway -> http://auth-service:4005/v3/api-docs 
+      - id: api-docs-auth-route
+    # where the request ends up
+        uri: http://auth-service:4005
+    #   determine what request is sent to patient-service
+        predicates: 
+        - Path=/api-docs/auth
+        filters:
+    #   rewrite from left to right
+        - RewritePath=/api-docs/auth,/v3/api-docs
+
 # api gateway to called and the api gateway calls the service on our behalf
