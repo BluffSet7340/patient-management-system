@@ -10,7 +10,7 @@ import net.devh.boot.grpc.server.service.GrpcService;
 // tell string this is a grpc service
 @GrpcService
 public class BillingGrpcService extends BillingServiceImplBase {
-
+// this was not easy to understand at first I tell you what
     private static final org.slf4j.Logger log = 
     LoggerFactory.getLogger(BillingGrpcService.class);
     // stream observer allows back and forth communication between client and server as opposed to rest api that require you to repeatedly make api calls to communicate
