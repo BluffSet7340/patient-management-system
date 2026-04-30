@@ -31,7 +31,29 @@ jobs:
           mvn install -f billing-service/pom.xml
           mvn install -f patient-service/pom.xml
 
-      - name: Build the dependency graph
+      - name: Build dependency graph - patient-service
         uses: advanced-security/maven-dependency-submission-action@v4
+        with:
+          directory: patient-service
+
+      - name: Build dependency graph - billing-service
+        uses: advanced-security/maven-dependency-submission-action@v4
+        with:
+          directory: billing-service
+
+      - name: Build dependency graph - auth-service
+        uses: advanced-security/maven-dependency-submission-action@v4
+        with:
+          directory: auth-service
+
+      - name: Build dependency graph - api-gateway
+        uses: advanced-security/maven-dependency-submission-action@v4
+        with:
+          directory: api-gateway
+
+      - name: Build dependency graph - analytics-service
+        uses: advanced-security/maven-dependency-submission-action@v4
+        with:
+          directory: analytics-service
     
 
