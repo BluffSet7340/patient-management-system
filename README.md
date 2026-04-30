@@ -317,3 +317,9 @@ I tested login endpoint through the api gateway it and received the token then s
 In the logs of the api-gateway docker container, sending a request with a wrong token produces a 401 but during testing with Postman it returns internal server error 500. I have to debug this since status code 500 implies issue with server which is wrong. To fix this a custom exception package was added where we intercept the error response from the api-gateway, capture it and then modify it so that it returns 401 when it should. Can be modified to other errors too. Next step is to create api documentation for the auth-service.
 
 Now on to testing. I will test the rest api using an open source tool called Rest-assured. The homepages explains it simply. The integration-tests module is stored in the root of the patient-management-system
+
+### 30th April 2026 - 
+
+Added a test to check to make sure we get a 200 OK response when we send a request. So the test works. So for testing we do not have to check if the token starts with bearer since the auth-service returns the raw JWT token but when the frontend client sends a request it will add Bearer <token> in its authorization header. Also tested with the auth-service off to see whether the test fails and it passes all is well.
+
+One of my integration test was causing some issues, the test passed for the getting patients with valid token but when loggin the reponse to the console I get an array of nulls which is totally wrong, debugging this rn.

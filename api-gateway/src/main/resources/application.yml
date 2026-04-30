@@ -18,6 +18,7 @@ spring:
         - StripPrefix=1
 
    ## Rest client -> http://localhost:5004/api/patients
+    #    routed to 
    ## api gateway -> http://patient-service:5000/patients
    ## patient service (Spring Boot app) -> /patients -> Patients Array 
       - id: patient-service-route

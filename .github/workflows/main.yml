@@ -3,13 +3,13 @@ name: Java build with Maven
 on: 
   push:
     branches: ["main"]
+    # paths is just the condition - start the action if a push commit is made on the main branch and affects these files
     paths:
       - "analytics-service/**"
       - "api-gateway/**"
       - "auth-service/**"
       - "billing-service/**"
       - "patient-service/**"
-      - "integration-tests/**"
 
 jobs:
 # name of the job
@@ -24,7 +24,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build the application
-        run: mvn install
+        run: |
+          mvn install -f analytics-service/pom.xml
+          mvn install -f api-gateway/pom.xml
+          mvn install -f auth-service/pom.xml
+          mvn install -f billing-service/pom.xml
+          mvn install -f patient-service/pom.xml
 
       - name: Build the dependency graph
         uses: advanced-security/maven-dependency-submission-action@v4
