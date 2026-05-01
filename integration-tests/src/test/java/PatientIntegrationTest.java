@@ -48,8 +48,8 @@ public class PatientIntegrationTest {
         
         System.out.println("Generated response: " + response.jsonPath().prettify()); // gets response as neat json
 
-
-        // token eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0QGVtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NzU0ODU1NSwiZXhwIjoxNzc3NTg0NTU1fQ.63vKvGDUdxFTFEmOX6Pbxk7K2q41AORYPzSMvF5OPd4yUtVYhlk9G0I3tROh3D13
     }
+
+
 
 }

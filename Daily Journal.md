@@ -323,3 +323,7 @@ Now on to testing. I will test the rest api using an open source tool called Res
 Added a test to check to make sure we get a 200 OK response when we send a request. So the test works. So for testing we do not have to check if the token starts with bearer since the auth-service returns the raw JWT token but when the frontend client sends a request it will add Bearer <token> in its authorization header. Also tested with the auth-service off to see whether the test fails and it passes all is well.
 
 One of my integration test was causing some issues, the test passed for the getting patients with valid token but when loggin the reponse to the console I get an array of nulls which is totally wrong, debugging this rn. Ran all tests and passed, more tests will be added inshallah
+
+### 1st May 2026 -
+
+I'll use Localstack - an AWS simulator to avoid any and all charges. AWS simplies the process of starting and creating docker containers and allowing them to communicate with each other in a virtual private cloud, located in a private subnet that can only be accessed via an ALB - application load balancer. So the frontend client will make a request to that.
