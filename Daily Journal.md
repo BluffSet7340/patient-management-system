@@ -327,3 +327,9 @@ One of my integration test was causing some issues, the test passed for the gett
 ### 1st May 2026 -
 
 I'll use Localstack - an AWS simulator to avoid any and all charges. AWS simplies the process of starting and creating docker containers and allowing them to communicate with each other in a virtual private cloud, located in a private subnet that can only be accessed via an ALB - application load balancer. So the frontend client will make a request to that.
+
+### 3rd May 2025 - 
+
+Created account on localstack, they have a nice student plan that I can use. Localstack simulates AWS services via the use of Docker containers. Encountered issue with localstack container not being found but that was fixed by simply pulling the localstack image from docker. Now to instantiate the AWS instance. Now I'll write the infrastructure as code in Java.
+
+Some dependencies are required to write IaC in Java
