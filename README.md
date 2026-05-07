@@ -3,4 +3,5 @@ Following this [tutorial](https://www.youtube.com/watch?v=tseqdcFfTUY&list=PLwno
 ## Extra Features (TO DO)
 - [ ] Allow a user with admin to add or remove patient from database
 - [ ] Add Integration test for the above function
-- [ ] Flow Diagrams to display how services interact with each other 
+- [ ] Flow Diagrams to display how services interact with each other
+- [ ] Add events such as update, delete patient for analytics-service to track via kafka 
