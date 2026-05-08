@@ -10,6 +10,7 @@ on:
       - "auth-service/**"
       - "billing-service/**"
       - "patient-service/**"
+      - "infrastructure/**"
 
 jobs:
 # name of the job
@@ -55,5 +56,11 @@ jobs:
         uses: advanced-security/maven-dependency-submission-action@v4
         with:
           directory: analytics-service
-    
+
+      - name: Build dependency graph - infrastructure
+        uses: advanced-security/maven-dependency-submission-action@v4
+        with:
+          directory: infrastructure
+
+
 

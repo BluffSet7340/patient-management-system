@@ -1,5 +1,7 @@
 package com.pm.stack;
 
+import java.util.stream.Collectors;
+
 import com.amazonaws.services.route53.model.VPC;
 
 import software.amazon.awscdk.App;
@@ -8,6 +10,10 @@ import software.amazon.awscdk.BootstraplessSynthesizer;
 import software.amazon.awscdk.RemovalPolicy;
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.StackProps;
+import software.amazon.awscdk.Token;
+import software.amazon.awscdk.services.msk.CfnCluster;
+import software.amazon.awscdk.services.msk.CfnCluster.BrokerNodeGroupInfoProperty;
+import software.amazon.awscdk.services.ec2.ISubnet;
 import software.amazon.awscdk.services.ec2.InstanceClass;
 import software.amazon.awscdk.services.ec2.InstanceSize;
 import software.amazon.awscdk.services.ec2.InstanceType;
@@ -17,6 +23,7 @@ import software.amazon.awscdk.services.rds.DatabaseInstance;
 import software.amazon.awscdk.services.rds.DatabaseInstanceEngine;
 import software.amazon.awscdk.services.rds.PostgresEngineVersion;
 import software.amazon.awscdk.services.rds.PostgresInstanceEngineProps;
+import software.amazon.awscdk.services.route53.CfnHealthCheck;
 
 public class LocalStack extends Stack {
     private final Vpc vpc;
@@ -32,6 +39,11 @@ public class LocalStack extends Stack {
         // define the db in your constructor
         DatabaseInstance authServiceDb = createDatabase("AuthServiceDb", "auth-service-db");
         DatabaseInstance patientServiceDb = createDatabase("PatientServiceDb", "patient-service-db");
+
+        CfnHealthCheck authDbHealthCheck = CfnHealthCheckForDb(authServiceDb, "AuthServiceDbHealthCheck");
+        CfnHealthCheck patientDbHealthCheck = CfnHealthCheckForDb(patientServiceDb, "PatientServiceDbHealthCheck");
+
+        CfnCluster mskCluster = CfnClusterKafka();
     }
 
     private Vpc createVpc() {
@@ -58,6 +70,28 @@ public class LocalStack extends Stack {
                 .databaseName(dbName)
                 .removalPolicy(RemovalPolicy.DESTROY) // stack is destroyed db storage is also gone
                 .build();
+    }
+
+    private CfnHealthCheck CfnHealthCheckForDb(DatabaseInstance databaseInstance, String id) {
+        return CfnHealthCheck.Builder.create(this, id)
+                .healthCheckConfig(CfnHealthCheck.HealthCheckConfigProperty.builder()
+                        .type("TCP")
+                        .port(Token.asNumber(databaseInstance.getDbInstanceEndpointPort()))
+                        .ipAddress(Token.asString(databaseInstance.getDbInstanceEndpointAddress()))
+                        .requestInterval(30) // check endpoint every 30 seconds => gives db a chance to startup
+                        .failureThreshold(3) // performs 3 tries before reporting a failure
+                        .build())
+                .build();
+    }
+
+    private CfnCluster CfnClusterKafka() {
+        return CfnCluster.Builder.create(this, "MskCluster")
+        .clusterName("kafka-cluster-for-patients")
+        .kafkaVersion("2.8.0")
+        .numberOfBrokerNodes(1) // connects vpn to broker node
+        .brokerNodeGroupInfo(CfnCluster.BrokerNodeGroupInfoProperty.builder().instanceType("kafka.m5.xlarge") // specifying size of machine to run on - more compute power
+        .clientSubnets(vpc.getPrivateSubnets().stream().map(ISubnet::getSubnetId).collect(Collectors.toList()))
+        .brokerAzDistribution("DEFAULT").build()).build(); 
     }
 
     public static void main(final String[] args) {

@@ -339,3 +339,9 @@ Some dependencies are required to write IaC in Java.
 Added some packages to the infrastructure module. Stack is all the components that make up the infra. Running the JAVA file to generate the cloud formation template - sort of like generating a docker image from a dockerfile.
 
 As we build the components of our infrastructure, the localstack.template.json will be not empty and built out. Implemented the createVpc function and called it in the constructor and ran it again and now the localstack.template.json is now not empty. cdk is useful for not having to create the template from scratch
+
+### 8th May 2025 - 
+
+Create a health check method for the databases. The health check runs every 30 seconds and does a maximum of 3 tries. After running the LocalStack file again I see the updated health checks on the cloud formation template file.
+
+Next step is to use the MSK service for Kafka broker, handling the low level maintenance. Now going to create the method to create this service
