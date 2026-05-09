@@ -345,3 +345,7 @@ As we build the components of our infrastructure, the localstack.template.json w
 Create a health check method for the databases. The health check runs every 30 seconds and does a maximum of 3 tries. After running the LocalStack file again I see the updated health checks on the cloud formation template file.
 
 Next step is to use the MSK service for Kafka broker, handling the low level maintenance. Now going to create the method to create this service
+
+### 9th May 2025 - 
+
+The last step for the cloud formation template is to add the ECS cluster

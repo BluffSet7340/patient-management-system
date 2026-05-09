@@ -1,5 +1,7 @@
 package com.pm.stack;
 
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.amazonaws.services.route53.model.VPC;
@@ -18,6 +20,9 @@ import software.amazon.awscdk.services.ec2.InstanceClass;
 import software.amazon.awscdk.services.ec2.InstanceSize;
 import software.amazon.awscdk.services.ec2.InstanceType;
 import software.amazon.awscdk.services.ec2.Vpc;
+import software.amazon.awscdk.services.ecs.CloudMapNamespaceOptions;
+import software.amazon.awscdk.services.ecs.Cluster;
+import software.amazon.awscdk.services.ecs.FargateService;
 import software.amazon.awscdk.services.rds.Credentials;
 import software.amazon.awscdk.services.rds.DatabaseInstance;
 import software.amazon.awscdk.services.rds.DatabaseInstanceEngine;
@@ -27,6 +32,7 @@ import software.amazon.awscdk.services.route53.CfnHealthCheck;
 
 public class LocalStack extends Stack {
     private final Vpc vpc;
+    private final Cluster ecsCluster;
 
     // boilerplate code
     // id is identifier of stack, props are additional parameters we want to add
@@ -44,6 +50,8 @@ public class LocalStack extends Stack {
         CfnHealthCheck patientDbHealthCheck = CfnHealthCheckForDb(patientServiceDb, "PatientServiceDbHealthCheck");
 
         CfnCluster mskCluster = CfnClusterKafka();
+
+        this.ecsCluster = createEcsCluster();
     }
 
     private Vpc createVpc() {
@@ -93,6 +101,20 @@ public class LocalStack extends Stack {
         .clientSubnets(vpc.getPrivateSubnets().stream().map(ISubnet::getSubnetId).collect(Collectors.toList()))
         .brokerAzDistribution("DEFAULT").build()).build(); 
     }
+
+    // so to find a specific service add the name of the service (container name) and the name of the namespace
+    // eg. auth-service.patient-management.local
+    private Cluster createEcsCluster() {
+        // added the service discovery namespace to this cluster, makes it easy to find this service and read about it
+        // does not run well on localstack since it runs on localhost but this works for an actual amazon aws system
+        return Cluster.Builder.create(this, "patientManagementCluster").vpc(vpc).defaultCloudMapNamespace(CloudMapNamespaceOptions.builder().name("patient-management.local").build()).build();
+    }
+
+    // create service using the FargateService launch type, makes it easy to start, stop, scale ecs tasks that run the containers
+    // the last argument is a map of key value pairs
+    // private FargateService creatFargateService(String id, String imageName, List<Integer> ports, DatabaseInstance dbName, Map<String, String> addEnvVars) {
+
+    // }
 
     public static void main(final String[] args) {
         // creating a new cdk app and defining where the output should be
