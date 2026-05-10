@@ -328,24 +328,28 @@ One of my integration test was causing some issues, the test passed for the gett
 
 I'll use Localstack - an AWS simulator to avoid any and all charges. AWS simplies the process of starting and creating docker containers and allowing them to communicate with each other in a virtual private cloud, located in a private subnet that can only be accessed via an ALB - application load balancer. So the frontend client will make a request to that.
 
-### 3rd May 2025 - 
+### 3rd May 2026 - 
 
 Created account on localstack, they have a nice student plan that I can use. Localstack simulates AWS services via the use of Docker containers. Encountered issue with localstack container not being found but that was fixed by simply pulling the localstack image from docker. Now to instantiate the AWS instance. Now I'll write the infrastructure as code in Java.
 
 Some dependencies are required to write IaC in Java.
 
-### 7th May 2025 - 
+### 7th May 2026 - 
 
 Added some packages to the infrastructure module. Stack is all the components that make up the infra. Running the JAVA file to generate the cloud formation template - sort of like generating a docker image from a dockerfile.
 
 As we build the components of our infrastructure, the localstack.template.json will be not empty and built out. Implemented the createVpc function and called it in the constructor and ran it again and now the localstack.template.json is now not empty. cdk is useful for not having to create the template from scratch
 
-### 8th May 2025 - 
+### 8th May 2026 - 
 
 Create a health check method for the databases. The health check runs every 30 seconds and does a maximum of 3 tries. After running the LocalStack file again I see the updated health checks on the cloud formation template file.
 
 Next step is to use the MSK service for Kafka broker, handling the low level maintenance. Now going to create the method to create this service
 
-### 9th May 2025 - 
+### 9th May 2026 - 
 
 The last step for the cloud formation template is to add the ECS cluster
+
+### 10th May 2026
+
+Added the container options for the AWS ECS containers - exposing the necessary ports and setting up the logs. 
