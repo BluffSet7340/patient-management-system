@@ -353,3 +353,21 @@ The last step for the cloud formation template is to add the ECS cluster
 ### 10th May 2026
 
 Added the container options for the AWS ECS containers - exposing the necessary ports and setting up the logs. 
+
+### 13th May 2026 - 
+
+Databases, ecs cluster, and kafka mask are all completed in the cloud formation template. Application load balancer has been configured into the cloud formation template. Next step is to prepare docker images to be deployed into the localstack environment. This will be done through the terminal since there are too many containers to deal with.
+
+### 14th May 2026 - 
+
+Docker desktop needs to be active when building these images. The reason for using yaml files to configure the api-gateway is to allow for changes to the auth-service and patient-service routes since those URIs will change when going from development to production environment. Add another file with the suffix prod so that we can create a profile for the production environment. The env variable, SPRING_PROFILES_ACTIVE is used to specify which yaml file to use. The value was set to "prod", causing Spring to use the yaml file that has "prod" in its name. 
+
+Final step now - using the aws-cli to take the cloud formation template and deploy the instance to localstack
+
+The script is complete, running the script now
+
+Got an error - region has not been specified.
+
+Need to specify login details and also region despite it being localstack
+
+Another crash cause since the kafka version of 2.8 was too old, need to use more recent version
