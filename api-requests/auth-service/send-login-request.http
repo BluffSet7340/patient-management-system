@@ -9,7 +9,7 @@
 
 # send login in request via frontend
 
-POST http://localhost:5004/auth/login
+POST http://lb-b7d24f40.elb.localhost.localstack.cloud:5004/auth/login
 Content-Type: application/json
 
 {

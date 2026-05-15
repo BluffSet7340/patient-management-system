@@ -659,7 +659,7 @@
      "InstanceType": "kafka.m5.xlarge"
     },
     "ClusterName": "kafka-cluster-for-patients",
-    "KafkaVersion": "4.2.0",
+    "KafkaVersion": "4.1.x.kraft",
     "NumberOfBrokerNodes": 1
    }
   },
@@ -1634,12 +1634,12 @@
      {
       "Environment": [
        {
-        "Name": "SPRING_PROFILES_ACTIVE",
-        "Value": "prod"
-       },
-       {
         "Name": "AUTH_SERVICE_URL",
         "Value": "host.docker.internal:4005"
+       },
+       {
+        "Name": "SPRING_PROFILES_ACTIVE",
+        "Value": "prod"
        }
       ],
       "Essential": true,

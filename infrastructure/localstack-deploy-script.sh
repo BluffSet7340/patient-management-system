@@ -13,4 +13,3 @@ aws --endpoint-url=http://localhost:4566 cloudformation deploy \
 # list and describe the load balancers in this environment - extract the DNSName of the first load balancer
 aws --endpoint-url=http://localhost:4566 elbv2 describe-load-balancers \
     --query "LoadBalancers[0].DNSName" --output text
-

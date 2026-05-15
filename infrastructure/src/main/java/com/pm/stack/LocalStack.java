@@ -143,7 +143,7 @@ public class LocalStack extends Stack {
         private CfnCluster CfnClusterKafka() {
                 return CfnCluster.Builder.create(this, "MskCluster")
                                 .clusterName("kafka-cluster-for-patients")
-                                .kafkaVersion("4.2.0")
+                                .kafkaVersion("4.1.x.kraft")
                                 .numberOfBrokerNodes(1) // connects vpn to broker node
                                 .brokerNodeGroupInfo(CfnCluster.BrokerNodeGroupInfoProperty.builder()
                                                 .instanceType("kafka.m5.xlarge") // specifying

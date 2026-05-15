@@ -1129,7 +1129,7 @@
                   "brokerAzDistribution": "DEFAULT"
                 },
                 "clusterName": "kafka-cluster-for-patients",
-                "kafkaVersion": "4.2.0",
+                "kafkaVersion": "4.1.x.kraft",
                 "numberOfBrokerNodes": 1
               }
             },
@@ -2779,12 +2779,12 @@
                         },
                         "environment": [
                           {
-                            "name": "SPRING_PROFILES_ACTIVE",
-                            "value": "prod"
-                          },
-                          {
                             "name": "AUTH_SERVICE_URL",
                             "value": "host.docker.internal:4005"
+                          },
+                          {
+                            "name": "SPRING_PROFILES_ACTIVE",
+                            "value": "prod"
                           }
                         ]
                       }

@@ -370,4 +370,10 @@ Got an error - region has not been specified.
 
 Need to specify login details and also region despite it being localstack
 
-Another crash cause since the kafka version of 2.8 was too old, need to use more recent version
+Another crash cause since the kafka version of 2.8 was too old, need to use more recent version. Using version 4.1.x.kraft
+
+### 15th May 2026 - 
+
+Still debugging issues with deployment to localstack. Trying to use awslocal instead of aws since the latter works better for localstack
+
+Okay now it is working not sure why. The endpoint has been created. Testing it right now. 
