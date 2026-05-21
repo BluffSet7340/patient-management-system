@@ -10,7 +10,7 @@ spring:
    ## Rest client -> http://localhost:5004/auth/login
    ## api gateway -> http://auth-service:4005/login
       - id: auth-service-route
-        uri: http://host.docker.internal:4005 #
+        uri: http://auth-service:4005 #
         predicates: 
         # sends request to auth-service if the url has auth in it
         - Path=/auth/**
@@ -23,7 +23,7 @@ spring:
    ## patient service (Spring Boot app) -> /patients -> Patients Array 
       - id: patient-service-route
     # where the request ends up
-        uri: http://host.docker.internal:5000
+        uri: http://patient-service:5000
     #   determine what request is sent to patient-service
         predicates: 
         - Path=/api/patients/**
@@ -36,7 +36,7 @@ spring:
    ## api gateway -> http://patient-service:5000/v3/api-docs 
       - id: api-docs-patient-route
     # where the request ends up
-        uri: http://host.docker.internal:5000
+        uri: http://patient-service:5000
     #   determine what request is sent to patient-service
         predicates: 
         - Path=/api-docs/patients
@@ -51,7 +51,7 @@ spring:
     ## api gateway -> http://auth-service:4005/v3/api-docs 
       - id: api-docs-auth-route
     # where the request ends up
-        uri: http://host.docker.internal:4005
+        uri: http://auth-service:4005
     #   determine what request is sent to patient-service
         predicates: 
         - Path=/api-docs/auth
