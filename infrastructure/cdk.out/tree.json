@@ -818,7 +818,7 @@
                       "Ref": "AuthServiceDbSubnetGroup12237DD0"
                     },
                     "engine": "postgres",
-                    "engineVersion": "17.2",
+                    "engineVersion": "17",
                     "masterUsername": "admin",
                     "masterUserPassword": {
                       "Fn::Join": [
@@ -1013,7 +1013,7 @@
                       "Ref": "PatientServiceDbSubnetGroup1312FFB6"
                     },
                     "engine": "postgres",
-                    "engineVersion": "17.2",
+                    "engineVersion": "17",
                     "masterUsername": "admin",
                     "masterUserPassword": {
                       "Fn::Join": [
@@ -1130,7 +1130,7 @@
                 },
                 "clusterName": "kafka-cluster-for-patients",
                 "kafkaVersion": "4.1.x.kraft",
-                "numberOfBrokerNodes": 1
+                "numberOfBrokerNodes": 2
               }
             },
             "constructInfo": {
@@ -1248,7 +1248,7 @@
                       {
                         "essential": true,
                         "image": "auth-service",
-                        "name": "auth-service Container",
+                        "name": "auth-serviceContainer",
                         "portMappings": [
                           {
                             "containerPort": 4005,
@@ -1275,7 +1275,7 @@
                           },
                           {
                             "name": "JWT_SECRET",
-                            "value": "${jwt.secret}"
+                            "value": "1efa4b99150d4203128275ec4711bc8d97139469fe8caf5ed4f9a968e8c4b3ce"
                           },
                           {
                             "name": "SPRING_DATASOURCE_URL",
@@ -1362,9 +1362,9 @@
                   "version": "2.178.1"
                 }
               },
-              "auth-service Container": {
-                "id": "auth-service Container",
-                "path": "localstack/AuthServiceTask/auth-service Container",
+              "auth-serviceContainer": {
+                "id": "auth-serviceContainer",
+                "path": "localstack/AuthServiceTask/auth-serviceContainer",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
                   "version": "2.178.1"
@@ -1653,7 +1653,7 @@
                       {
                         "essential": true,
                         "image": "billing-service",
-                        "name": "billing-service Container",
+                        "name": "billing-serviceContainer",
                         "portMappings": [
                           {
                             "containerPort": 5001,
@@ -1712,9 +1712,9 @@
                   "version": "2.178.1"
                 }
               },
-              "billing-service Container": {
-                "id": "billing-service Container",
-                "path": "localstack/BillingServiceTask/billing-service Container",
+              "billing-serviceContainer": {
+                "id": "billing-serviceContainer",
+                "path": "localstack/BillingServiceTask/billing-serviceContainer",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
                   "version": "2.178.1"
@@ -2003,7 +2003,7 @@
                       {
                         "essential": true,
                         "image": "analytics-service",
-                        "name": "analytics-service Container",
+                        "name": "analytics-serviceContainer",
                         "portMappings": [
                           {
                             "containerPort": 5002,
@@ -2057,9 +2057,9 @@
                   "version": "2.178.1"
                 }
               },
-              "analytics-service Container": {
-                "id": "analytics-service Container",
-                "path": "localstack/AnalyticsServiceTask/analytics-service Container",
+              "analytics-serviceContainer": {
+                "id": "analytics-serviceContainer",
+                "path": "localstack/AnalyticsServiceTask/analytics-serviceContainer",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
                   "version": "2.178.1"
@@ -2348,7 +2348,7 @@
                       {
                         "essential": true,
                         "image": "patient-service",
-                        "name": "patient-service Container",
+                        "name": "patient-serviceContainer",
                         "portMappings": [
                           {
                             "containerPort": 5002,
@@ -2466,9 +2466,9 @@
                   "version": "2.178.1"
                 }
               },
-              "patient-service Container": {
-                "id": "patient-service Container",
-                "path": "localstack/PatientServiceTask/patient-service Container",
+              "patient-serviceContainer": {
+                "id": "patient-serviceContainer",
+                "path": "localstack/PatientServiceTask/patient-serviceContainer",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
                   "version": "2.178.1"
@@ -2780,7 +2780,7 @@
                         "environment": [
                           {
                             "name": "AUTH_SERVICE_URL",
-                            "value": "host.docker.internal:4005"
+                            "value": "http://host.docker.internal:4005"
                           },
                           {
                             "name": "SPRING_PROFILES_ACTIVE",

@@ -468,7 +468,7 @@
      "Ref": "AuthServiceDbSubnetGroup12237DD0"
     },
     "Engine": "postgres",
-    "EngineVersion": "17.2",
+    "EngineVersion": "17",
     "MasterUserPassword": {
      "Fn::Join": [
       "",
@@ -572,7 +572,7 @@
      "Ref": "PatientServiceDbSubnetGroup1312FFB6"
     },
     "Engine": "postgres",
-    "EngineVersion": "17.2",
+    "EngineVersion": "17",
     "MasterUserPassword": {
      "Fn::Join": [
       "",
@@ -660,7 +660,7 @@
     },
     "ClusterName": "kafka-cluster-for-patients",
     "KafkaVersion": "4.1.x.kraft",
-    "NumberOfBrokerNodes": 1
+    "NumberOfBrokerNodes": 2
    }
   },
   "patientManagementClusterBA279E99": {
@@ -704,7 +704,7 @@
        },
        {
         "Name": "JWT_SECRET",
-        "Value": "${jwt.secret}"
+        "Value": "1efa4b99150d4203128275ec4711bc8d97139469fe8caf5ed4f9a968e8c4b3ce"
        },
        {
         "Name": "SPRING_DATASOURCE_URL",
@@ -777,7 +777,7 @@
         }
        }
       },
-      "Name": "auth-service Container",
+      "Name": "auth-serviceContainer",
       "PortMappings": [
        {
         "ContainerPort": 4005,
@@ -983,7 +983,7 @@
         }
        }
       },
-      "Name": "billing-service Container",
+      "Name": "billing-serviceContainer",
       "PortMappings": [
        {
         "ContainerPort": 5001,
@@ -1182,7 +1182,7 @@
         }
        }
       },
-      "Name": "analytics-service Container",
+      "Name": "analytics-serviceContainer",
       "PortMappings": [
        {
         "ContainerPort": 5002,
@@ -1442,7 +1442,7 @@
         }
        }
       },
-      "Name": "patient-service Container",
+      "Name": "patient-serviceContainer",
       "PortMappings": [
        {
         "ContainerPort": 5002,
@@ -1635,7 +1635,7 @@
       "Environment": [
        {
         "Name": "AUTH_SERVICE_URL",
-        "Value": "host.docker.internal:4005"
+        "Value": "http://host.docker.internal:4005"
        },
        {
         "Name": "SPRING_PROFILES_ACTIVE",

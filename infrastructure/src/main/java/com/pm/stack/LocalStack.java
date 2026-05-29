@@ -64,7 +64,7 @@ public class LocalStack extends Stack {
                 this.ecsCluster = createEcsCluster();
 
                 FargateService authService = createFargateService("AuthService", "auth-service", List.of(4005),
-                                authServiceDb, Map.of("JWT_SECRET", "${jwt.secret}"));
+                                authServiceDb, Map.of("JWT_SECRET", "1efa4b99150d4203128275ec4711bc8d97139469fe8caf5ed4f9a968e8c4b3ce"));
 
                 // adding health check and database as dependencies
                 authService.getNode().addDependency(authDbHealthCheck);
@@ -79,7 +79,7 @@ public class LocalStack extends Stack {
                 analyticsService.getNode().addDependency(mskCluster);
 
                 FargateService patientService = createFargateService("PatientService", "patient-service",
-                                // localstack does not have tbe cloud discovery so we use the internal docker
+                                // localstack does not have the cloud discovery so we use the internal docker
                                 // network, and the its associated port to access it
                                 List.of(5002), patientServiceDb,
                                 Map.of("BILLING_SERVICE_ADDRESS", "host.docker.internal",
@@ -109,7 +109,7 @@ public class LocalStack extends Stack {
                                 .create(this, id)
                                 .engine(DatabaseInstanceEngine.postgres(
                                                 PostgresInstanceEngineProps.builder()
-                                                                .version(PostgresEngineVersion.VER_17_2).build()))
+                                                                .version(PostgresEngineVersion.VER_17).build()))
                                 .vpc(vpc) // vpc instance already defined
                                 .instanceType(InstanceType.of(InstanceClass.BURSTABLE2, InstanceSize.MICRO)) // set the
                                                                                                              // compute
@@ -144,7 +144,7 @@ public class LocalStack extends Stack {
                 return CfnCluster.Builder.create(this, "MskCluster")
                                 .clusterName("kafka-cluster-for-patients")
                                 .kafkaVersion("4.1.x.kraft")
-                                .numberOfBrokerNodes(1) // connects vpn to broker node
+                                .numberOfBrokerNodes(2) // connects vpc to broker node
                                 .brokerNodeGroupInfo(CfnCluster.BrokerNodeGroupInfoProperty.builder()
                                                 .instanceType("kafka.m5.xlarge") // specifying
                                                                                  // size
@@ -241,7 +241,7 @@ public class LocalStack extends Stack {
                 containerOptions.environment(envVars);
 
                 // next step is to add containerOptions to taskDefinition
-                taskDefinition.addContainer(imageName + " Container", containerOptions.build()); // pass the image and
+                taskDefinition.addContainer(imageName + "Container", containerOptions.build()); // pass the image and
                                                                                                  // build the container
 
                 // also controls external access to a task running in a given container and it
@@ -262,7 +262,7 @@ public class LocalStack extends Stack {
                 ContainerDefinitionOptions containerOptions = ContainerDefinitionOptions.builder()
                 // api-gateway will have different set of routes for production and testing
                                 .image(ContainerImage.fromRegistry("api-gateway")).environment(Map.of("SPRING_PROFILES_ACTIVE", "prod", 
-                                        "AUTH_SERVICE_URL", "host.docker.internal:4005"
+                                        "AUTH_SERVICE_URL", "http://host.docker.internal:4005"
                                 ))
                                 .portMappings(List.of(5004).stream().map( // port mapping to expose the ports of the container
                                                 port -> PortMapping.builder().containerPort(port).hostPort(port)

@@ -377,3 +377,17 @@ Another crash cause since the kafka version of 2.8 was too old, need to use more
 Still debugging issues with deployment to localstack. Trying to use awslocal instead of aws since the latter works better for localstack
 
 Okay now it is working not sure why. The endpoint has been created. Testing it right now. 
+
+### 20th May 2026 - 
+
+Still debugging. Mistakenly used the wrong number of broker nodes compared to the number of availability zone. The number should be such that they are multiples of each other. 
+
+Another issue encountered was the adding spaces when combining id with string. In one case the taskDefinition takes the .addContainer method and adds the imageName to the " Container" with a space included. That space should not exist. Another error - the environment variable that pointed to the auth service container did not have the preceding "http://". 
+
+### 21st May 2026 -
+
+That fix did not work either. ChatGPT suggested changing the url yml file in the api-gateway from host.docker.internal to the container names instead. Since the latter poses issues due to NAT
+
+### 22nd May 2026 - 
+
+lots of debugging required now

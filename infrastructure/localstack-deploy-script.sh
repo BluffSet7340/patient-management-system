@@ -5,6 +5,10 @@ export AWS_DEFAULT_REGION=us-east-1
 export AWS_ACCESS_KEY_ID=test
 export AWS_SECRET_ACCESS_KEY=test
 
+# clear out the existing stack each time you want to add new changes or services
+aws --endpoint-url=http://localhost:4566 cloudformation delete-stack \
+    --stack-name patient-management
+
 # using aws-cli to deploy the cloud formation
 aws --endpoint-url=http://localhost:4566 cloudformation deploy \
     --stack-name patient-management \
