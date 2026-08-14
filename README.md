@@ -47,7 +47,7 @@ Below are some of the features that could be implemented to further enhance the 
 
 - [ ] Allow a user with admin to add or remove patient from database
 - [ ] Add Integration test for the above function
-- [ ] Flow Diagrams to display how services interact with each other
+- [X] Flow Diagrams to display how services interact with each other
 - [ ] Add events such as update, delete patient for analytics-service to track via kafka 
 
 ## Running the Project
@@ -61,6 +61,20 @@ Below are some of the features that could be implemented to further enhance the 
 - **Integration tests:** `cd integration-tests && ./mvnw test` (or `mvnw.cmd test` on Windows)
 
 - **Notes:** Many services require environment variables (DB, Kafka, gRPC endpoints). Check each service's `src/main/resources` for required settings before running.
+
+## Flow Diagram
+
+![Flow Diagram showcasing how all the services interact with each other](./demo/Flow%20Diagram.drawio.png)
+
+### Explanation
+
+The frontend client sends a request to the API gateway with a JWT token. The API gateway routes the request to the auth-service which checks whether the user exists and the token is valid. 
+
+Once verified, the API gateway routes the request to the patient service. This allows the user to create, edit, update, and delete patients. 
+
+The patient-service and billing-service communicate via gRPC protocol. When a new patient is added, a billing account is created for said patient.
+
+The patient-service and analytics-service communicate via Kafka. A defined kafka topic (patients) ingests messages when a new patient is added and sends the message to the analytics-service, which has a consumer and displays the details of the added patient. 
 
 ## Video Demo
 
