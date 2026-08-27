@@ -49,6 +49,7 @@ Below are some of the features that could be implemented to further enhance the 
 - [ ] Add Integration test for the above function
 - [X] Flow Diagrams to display how services interact with each other
 - [ ] Add events such as update, delete patient for analytics-service to track via kafka 
+- [ ] Publish the frontend on themeforest or similar
 
 ## Running the Project
 
